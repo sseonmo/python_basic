@@ -53,7 +53,8 @@ c, d = d, c
 print(c, d)  # 2 2
 
 #  딕셔너리
-color = dict(apple='red', banana='yello')
+# color = dict(apple='red', banana='yello')
+color = {'apple': 'red', 'banana': 'yello'}
 print(color["apple"])  # red
 color["apple"] = 'green'
 print(color["apple"])  # green
@@ -61,4 +62,10 @@ print(color.keys())  # dict_keys(['apple', 'banana'])
 print(color.values())  # dict_values(['green', 'yello'])
 
 for k, v in color.items():
-    print(k, v)  # apple green, banana yello
+	print(k, v)  # apple green, banana yello
+
+color.__delitem__('apple')
+print(color)
+color.clear()
+print(color)
+print('aaa')
