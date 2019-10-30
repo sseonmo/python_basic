@@ -69,15 +69,82 @@ print("{0:%}".format(4 / 3))  # 133.333333%
 print("{0:.3f}".format(4 / 3))  # 1.333
 
 # 입력
+"""
+- 사용자로부터 입력 input()함수를 이용하여 받을 수 있다. 
+"""
+# a = input('insert and key:')    # input key : test
+# print(a)    # test
 
 ## 파일입출력
 ## open
+"""
+- 파일 입출력 제어를 보다 세밀하게 하기 위해서는 open()  
+함수를 이용 파일을 연 후, 파일전용 함수를 이용해 작업하는것이 일반적
+> 기본형:파일객체 = open(file, mode)
+- mode 속성 - 속성들을 조합해서 사용가능함.
+	- r : 일기모드(디폴트)
+	- w : 쓰기모드
+	- a : 쓰기 + 이어쓰지모드
+	- + : 읽기 + 쓰기모드
+	- b : 바이너리모드
+	- t : 텍스트모드(디폴트)
+"""
 ## write, close
+f = open('test.txt', 'w')
+print(f.write('plow deep\nwhile sluggard sleep'))  # writer는 글자수를 반환 (int)
+f.close()
 ## read
-## readline, readlines, tell, seek
-## 	> With ~ as
+# - 텍스트 모드에서는 일반 문자열과 같이 encoding이 적요되기때문에,
+# 바이너리 데이터(binary data) 를 다룰 때에는 오류가 발생함
+# 바이너리 데이터를 다룰 때에는 만드시 바이너리 모드를 사용해야 한다.
+f = open('test.txt')
+print(f.read())  # plow deep\nwhile sluggard sleep
+f.close()
+print(f.closed)  # True : boolean값을 리턴
+# 파일입출력 관련 함수들
+## readline() 함수 : 호출할 대 마다 한 줄씩 읽은 문자열을 반환함
+## readlines() 함수 :  파일의 모든 내용을 줄 단위로 잘라서 리스트를 반환함
+## tell() 함수 :  현재 파일에서 어디까지 읽고 썼는지 위치를 반환함
+## seek() 함수 :  사용자가 원한느 위치로 포인터를 이동함
+
+## 	> With ~ as 구문 : 문장이 끝날때 자동으로 파일을 close() 한다.
+with open('test.txt') as f:
+	print(f.readlines())  # ['plow deep\n', 'while sluggard sleep']
+	print(f.closed)  # False
+
+print(f.closed)  # True
 
 ## pickle
-## 주의 - list, dict 는 반드시 바이너리 타입으로 파일에 저장해야 한다.
-## pickle - 사용자 정의 클래스 
+"""
+# - 리스트나 클래스를 파일로 저장할 때 사용함.
+# - 쓰기 : dump, 읽기 : load
+## 주의 - list, dict, class 는 반드시 바이너리 타입으로 파일에 저장해야 한다.
+"""
+# 쓰기
+import pickle
 
+colors = ['red', 'green', 'black']
+f = open('colors', 'wb')
+pickle.dump(colors, f)
+f.close()
+
+# 읽기
+del colors
+f = open('colors', 'rb')
+colors = pickle.load(f)
+f.close()
+print(colors)
+
+## pickle - 사용자 정의 클래스
+class test:
+	var = None
+
+a = test()
+a.var = 'Test'
+f = open('test', 'wb')
+pickle.dump(a, f)
+f.close()
+f = open('test', 'rb')
+b = pickle.load(f)
+f.close()
+print(b.var)  # Test
