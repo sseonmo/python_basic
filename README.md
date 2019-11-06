@@ -1,6 +1,6 @@
 # 자료형
 ### 수치
-- int, float, complex, 연산자(+, -, *, /, //, %, **, =) 
+- int, float, complex, 연산자(+, -, *, /, //(몫), %(나머지), **(제곱), =) 
 ###  +, * 연산자
 ```python
 print('py''thon')   # python - 중간에 + 생략되어 있다.
@@ -119,7 +119,7 @@ print(sum1(20))  # 200
 ```
 - 키워드인수
     * 인수의 이름으로 값을 전달하는 방식
-    * 인수에 순서에 상관없이 변수의 이름으로 특정인수를 전달 할 수 있다.(가동성 짱)
+    * 인수에 순서에 상관없이 변수의 이름으로 특정인수를 전달 할 수 있다.(가독성 짱)
 ```python
 def connectURL(server, port):
     # strUrl = "http://" + server + ":" + port
@@ -1043,4 +1043,132 @@ print(re.sub('[:,|\s]', ",", "Apple:Orange Banana|Tomato"))  # Apple,Orange,Bana
 
 ```
 
+# 날짜 다루기
+### 컴퓨터에서 시간 표현 방법
+- timp Stamp
+- UTC : 협정세계시
+- 그리니치 평균시
+- LST(Local Standard Time, 지방표준시)
+- 일광절약 시간제(Daylight Saving Tiem, DTS) : 흔히 summer time 으로 불림  
 
+### struct_time 시퀀스 객체
+| 속성 | 내용 | 속성 | 내용 |
+|---|:---|:---|:---|
+tm_year | 년도 | tm_min | 분
+tm_mon | 월 | tm_sec | 초
+tm_mday | 일 | tm_wday | 요일
+tm_hour | 시 | tm_yday | 누절날짜
+
+### time 모듈
+- 시간을 표현하는데 사용  
+  
+| 함수 | 설명 |
+|:---|:---|
+| time.time() | 1970년 1월 1일 자정 이후로 누적된 초를 float 단위로 반환 | 
+| time.sleep(secs) | 현재 동작중인 프로세스를 주어진 초만큼 정지 | 
+| time.gmtime([secs]) | 입력된 초를 변환하여, UTC 기준의 struct_time 시퀀스 객체로 반환 | 
+| time.localtime([secs]) | 입력된 초를 변환하여, 지방표준시 기준의 struct_time 시퀀스 객체로 반환 | 
+| time.asctime([t]) | struct_time 시퀀스 객체를 인자로 받아서 'Sun Mar 15 18:49:28 2009'와 같은 형태로 반환 | 
+| time.mktime(t) | 지방표준시인 struct_time 시퀀스 객체를 인자로 받아서 time()과 같은 누적된 초를 반환 | 
+```python
+import time
+
+print(time.time())  # 1573004119.4509113
+print(time.gmtime())
+# time.struct_time(tm_year=2019, tm_mon=11, tm_mday=6, tm_hour=1, tm_min=35, tm_sec=19, tm_wday=2, tm_yday=310, tm_isdst=0)
+print(time.localtime())
+# time.struct_time(tm_year=2019, tm_mon=11, tm_mday=6, tm_hour=10, tm_min=35, tm_sec=19, tm_wday=2, tm_yday=310, tm_isdst=0)
+
+t = time.gmtime(1234567890)
+print(t)
+# time.struct_time(tm_year=2009, tm_mon=2, tm_mday=13, tm_hour=23, tm_min=31, tm_sec=30, tm_wday=4, tm_yday=44, tm_isdst=0)
+print(t.tm_mon)  # 2
+print(t.tm_hour)  # 23
+print(time.asctime(t))  # Fri Feb 13 23:31:30 2009
+print(time.mktime(t))  # 1234535490.0
+```
+
+### strptine, strftime
+- 사용자가 직접 포맷을 지정하여 출력
+> time.strftime(format[, t])  
+time.strptime(string[, format])
+- 형식지시자  
+
+| 지시자 | 설명 | 지시자 | 설명 |
+|:---:|:---|:---:|:---|
+| %y | 연도를 축약하여 표시 | %M | 분(00~59) |
+| %Y | 연도를 축약하지 않고 표시 | %S | 초(00~61) : 윤시 때문에 61 |
+| %b | 축약된 월  | %p | AM/PM |
+| %B | 축약되지 않은 월 | %a | 축약된 요일 이름 |
+| %m | 숫자로 표현한 월(01~12) | %A | 축약되지 않은 요일 이름 |
+| %d | 일(01~31_ | %w | 요일을 숫자로 표시 |
+| %H | 24시를 기준으로 한 시(0~23)| %j | 1월 1일부터 누작된 날짜(001~366) |
+| %I | 12시를 기준으로 한 시(0~23) |  |  |
+
+```python
+
+# strftime
+import time
+from time import localtime, strftime, strptime
+
+print(strftime('%B %dth %A %I:%M', localtime()))  # November 06th Wednesday 02:45
+print(strftime('%Y-%m-%d %H:%M:%S', localtime()))  # 2019-11-06 14:46:37
+
+# stfptime
+timeString = time.ctime()
+print(strptime(timeString))
+# time.struct_time(tm_year=2019, tm_mon=11, tm_mday=6, tm_hour=14, tm_min=49, tm_sec=11, tm_wday=2, tm_yday=310, tm_isdst=-1)
+print(strptime(timeString, '%a %b %d %H:%M:%S %Y'))
+# time.struct_time(tm_year=2019, tm_mon=11, tm_mday=6, tm_hour=14, tm_min=51, tm_sec=41, tm_wday=2, tm_yday=310, tm_isdst=-1)
+print(strptime(timeString, '%a %b %d %H:%M:%S %y'))  
+# ValueError: unconverted data remains: 19 : format type이 안맞을경우
+```
+### datetime 
+- 기념일과 같은 날짜, 시간 연산을 위하여 사용
+
+#### datetime 주요클래스
+- datetime.date
+	> 일반적으로 사용되는 그레고리안 달력의 년, 월, 일을 표현
+- datetime.time
+	> 시간을 시, 분 , 초, 마이크로 초, 시간대(time zone)로 표현
+- datetime.datetime
+	> date 클래스와 time클래스의 조합으로 구성
+- datetime.timedelta
+	> 두 날짜 혹은 시간 사이의 기간을 표현
+
+#### date 클래스
+- 생성자 : datetime.date(year, month, day)
+```python
+import datetime
+
+print(datetime.date(2019, 11, 6))   # 2019-11-06
+```
+
+#### time 클래스
+- 생성자 : datetime.time(hour[, minute[, second[, microsecond[, tzinfo]]]])
+- 시, 분, 초, 마이크로초, 시간대 정보를 입력받아 time 객체를 생성
+```python
+import datetime
+
+print(datetime.time(17))    #   17:00:00
+```
+
+#### timedelta 클래스
+- 두 날짜 혹은 시간 사이의 기간을 표현
+- 생성자 : timedelta([days[, seconds[, microseconds[, milliseconds[, minutes[, hours[, weeks]]]]]]])
+```python
+from datetime import timedelta, datetime
+
+td_1 = timedelta(hours=7)
+td_2 = timedelta(days=-3)
+print(td_1 + td_2)  # -3 days, 7:00:00
+print(td_1 - td_2)  # 3 days, 7:00:00
+print(td_1 * 4)  # 1 day, 4:00:00
+print(td_1 // 3)  # 2:20:00
+print(td_1 > td_2)  # True
+print(td_1 < td_2)  # False
+print(timedelta(hours=24) == timedelta(seconds=86400))  # True
+dt = datetime.today()
+print(dt)   # 2019-11-06 16:43:08.543246
+print(dt.strftime('%Y-%m-%d %H:%M:%S')) # 2019-11-06 16:44:02
+```
