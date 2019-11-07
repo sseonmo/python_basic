@@ -44,3 +44,49 @@ print(5.5 % 3)  # 2.5
 print(math.fmod(-5.5, 3))  # -2.5
 print(-5.5 % 3)  # 0.5
 
+import fractions
+
+print(fractions.Fraction(4, 16))  # 1/4
+print(fractions.Fraction(3))  # 3
+print(fractions.Fraction('3.14'))  # 157/50
+
+import decimal
+
+# 정수
+print(decimal.Decimal(3))  # 3
+# 문자열
+print(decimal.Decimal('1.1'))  # 1.1
+# 튜플
+print(decimal.Decimal((0, (3, 1, 4), -2)))  # 3.14
+# 음의무한대
+print(decimal.Decimal("Infinity"))  # Infinity
+# NaN(Not a Number)
+print(decimal.Decimal('NaN'))  # NaN
+
+# 객체연산
+a, b = decimal.Decimal('3.14'), decimal.Decimal('0.04')
+print(a + b)  # 3.18
+print(a - b)  # 3.10
+print(a * b)  # 0.1256
+print(a / b)  # 78.5
+print(a % b)  # 0.02
+print(a ** b)  # 1.046832472577719248090395663
+
+# ramdom module
+import random
+
+print(random.random())  # 0.6288877273639506
+print(random.random())  # 0.9081072608530669
+print(random.uniform(3, 4))  # 3.2779514435433064
+print([random.gauss(1, 1.0) for i in range(3)])  # [1.6710547563870566, 2.06818305305946, -0.40913684745979806]
+
+# 임의의 정수 생성예제
+print([random.randrange(20) for i in range(10)])  # [13, 4, 9, 11, 0, 13, 12, 4, 1, 6]
+# 중복을 피하긴 위해서 sample 를 사용해야함
+print(random.sample(range(20), 10))  # [13, 18, 11, 5, 17, 3, 1, 10, 7, 2]
+
+l = list(range(10))
+print([random.choice(l) for i in range(5)])  # [6, 2, 6, 3, 1]
+print(random.sample(l, 5))  # [6, 2, 5, 7, 0]
+random.shuffle(l)
+print(l)  # [3, 2, 1, 7, 4, 8, 6, 5, 0, 9]

@@ -1206,3 +1206,88 @@ print(-5.5 % 3)  # 0.5
 ![](./image/number3.png)
 ![](./image/number4.png)
 
+### 분수(Fraction) 클래스 
+- 유리수와 관련된 연산을 효율적으로 처리할 수 있는 분수(fractions) 모듈
+- 기본적인 연산 및 floor, ceil, round도 사용가능하며, 최대공약수를 반환하는 클래스 메서드도 존재
+```python
+"""
+Fraction 클래스의 생성자
+fraction Fraction(분자=0, 분모=1)
+fraction Fraction(Fraction 객체)
+fraction Fraction(문자열)
+"""
+import fractions
+
+print(fractions.Fraction(4, 16))  # 1/4
+print(fractions.Fraction(3)) # 3
+print(fractions.Fraction('3.14'))  # 157/50
+```
+
+### 십진법(decimal) 모듈
+![](image/number5.png)
+```python
+"""
+생성자 
+decimal.Decimal([value[, context]])
+"""
+
+import decimal
+
+# 정수
+print(decimal.Decimal(3))  # 3
+# 문자열
+print(decimal.Decimal('1.1'))  # 1.1
+# 튜플
+print(decimal.Decimal((0, (3, 1, 4), -2)))  # 3.14
+# 음의무한대
+print(decimal.Decimal("Infinity"))  # Infinity
+# NaN(Not a Number)
+print(decimal.Decimal('NaN'))  # NaN
+
+# 객체연산
+a, b = decimal.Decimal('3.14'), decimal.Decimal('0.04')
+print(a + b)  # 3.18
+print(a - b)  # 3.10
+print(a * b)  # 0.1256
+print(a / b)  # 78.5
+print(a % b)  # 0.02
+print(a ** b)  # 1.046832472577719248090395663
+```
+
+### 랜덤(random) 메서드
+- 메서드  
+ 
+| 메서드 | 설명 |
+|:---|:---|
+| random.seed([x]) | 임의 숫자 생성기의 초기화 작업을 함 |
+| random.random() | '0.0 <= F < 1.0' 사이의 임의의 float 숫자를 반환 |
+| random.uniform(a, b) | 인자로 받은 두 값 사이의 임의의 float 숫자를 반환 |
+| random.gauss(m, sb) | 가우스 분포의 난수를 반환 |
+| random.randrange([start], stop[, step]) | 내장함수 인 range()의 아이템 중에서 임의로 선택하여 반환 |
+| random.randint(a, b) | 'a <= N <= b' 인 임의의 정수 N를 반환 |
+| random.choice(seq) | 입력받은 시퀀스 객체의 임의의 아이템을 반환 |
+| random.shuffle(x[,random]) | 입력받은 시퀀스 객체를 섞음 |
+
+```python
+
+# ramdom module
+import random
+
+print(random.random())  # 0.6288877273639506
+print(random.random())  # 0.9081072608530669
+print(random.uniform(3, 4))  # 3.2779514435433064
+print([random.gauss(1, 1.0) for i in range(3)])  # [1.6710547563870566, 2.06818305305946, -0.40913684745979806]
+
+# 임의의 정수 생성예제
+print([random.randrange(20) for i in range(10)])  # [13, 4, 9, 11, 0, 13, 12, 4, 1, 6]
+# 중복을 피하긴 위해서 sample 를 사용해야함
+print(random.sample(range(20), 10))  # [13, 18, 11, 5, 17, 3, 1, 10, 7, 2]
+
+l = list(range(10))
+print([random.choice(l) for i in range(5)])  # [6, 2, 6, 3, 1]
+print(random.sample(l, 5))  # [6, 2, 5, 7, 0]
+random.shuffle(l)
+print(l)  # [3, 2, 1, 7, 4, 8, 6, 5, 0, 9]
+
+```
+
