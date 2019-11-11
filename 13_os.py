@@ -8,7 +8,7 @@ from os import *
 
 print(getcwd())
 # /Users/guseonmo/Documents/study/python/python_basic
-# chdir('./lib')
+chdir('./lib')
 print(getcwd())
 # /Users/guseonmo/Documents/study/python/python_basic/lib
 
@@ -60,6 +60,7 @@ print(listdir('test2/sub1/sub2'))  # ['leaf']
 """
 for path, dirs, files in walk('.'):
 	print(path, dirs, files)
+
 """
 #### os.pipe()
 - 파이프를 생성
@@ -71,7 +72,8 @@ for path, dirs, files in walk('.'):
 #### os.popen(command[, mode[, bufsize]])
 - 인자로 전달된 command를 수애하며 파이프를 생
 """
-p = popen('ls -l', 'r')
+# p = popen('ls -l', 'r')
+p = popen('dir', 'r')
 print(p.read())
 # -rw-r--r--   1 guseonmo  staff   1782 Oct 20 09:36 01_DataType.py
 """
@@ -80,8 +82,11 @@ print(p.read())
 
 #### os.startfile(path[, operation])
 - <path>를 os에서 지정된 프로그램으로 실행
-- `기능이 없`
-
+"""
+print(chdir(".."))
+print(getcwd())
+startfile('test.txt')   # notepad 실행됨.
+"""
 #### os.excel(path, arg0, arg1, ..)
 - 현재 프로세스에서 새로운 프로그램을 수행
 > l : 입력인자 수가 정해져 있다.
@@ -89,34 +94,3 @@ print(p.read())
   e : 환경변수를 인수로 받을 수 있다.
   p : 환경변수의 path를 이용한다.
 """
-
-"""
-
-### sys모듈
-
-- sys.exc_info()
-	현재 발생한 예외정보를 튜플로 반환한다. 예외가 없으면 None를 반환
-	예외 클래스, 예외값, traceback 객체를 반환한다.
-- sys.exit([arg])
-	프로세스 종료( arg가 0 일때 정상종료, 이 외 비정상종료)
-- sys.path
-
-### 스레드 객체
-- Thread.start()
-- Thread.
-
-#### lock 객체
-- lock, unlocked의 2가지 상태를 제공
-
-
-
-
-
-
-"""
-"""
-"""
-
-import os
-
-os.pipe()
