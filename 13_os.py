@@ -85,7 +85,8 @@ print(p.read())
 """
 print(chdir(".."))
 print(getcwd())
-startfile('test.txt')   # notepad 실행됨.
+startfile('test.txt')   # notepad 실행됨. mac에서 지원안함
+
 """
 #### os.excel(path, arg0, arg1, ..)
 - 현재 프로세스에서 새로운 프로그램을 수행
