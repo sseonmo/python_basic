@@ -1784,6 +1784,7 @@ class player(Thread):
 		self.mycards = []
 
 	def run(self):
+		# global 전역변수 => 전역변수를 지역변수로 사용하겠다는 
 		global cards
 		while True:
 			lock.acquire()
