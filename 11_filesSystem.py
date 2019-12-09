@@ -8,8 +8,11 @@ import os
 #### os.path.abspath(path)
 - 절대 경로를 반환
 """
+print("===================")
 print(__file__)  # C:/workspace/python_basic/11_filesSystem.py
 print(abspath(__file__))  # C:/workspace/python_basic/11_filesSystem.py
+print(dirname(abspath(__file__)))
+print(dirname(dirname(abspath(__file__))))
 
 """
 #### os.path.basename(path)
@@ -199,5 +202,5 @@ def traverse(dir, depth):
 		else:
 			print(prefix + 'unknown object', obj)
 
-if __name__ == '__main__':
-	traverse("..", 0)
+# if __name__ == '__main__':
+# 	traverse("..", 0)
