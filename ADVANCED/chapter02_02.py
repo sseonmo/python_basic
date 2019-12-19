@@ -11,7 +11,7 @@
 # 참조2 : https://www.tutorialsteacher.com/python/magic-methods-in-python
 
 # 매직매소드 실습
-# 파이썬의 중요한 핵식 프레임워크 - 시퀀스(Sequence), 반복(Interator), 함수(Functions), 클래스(Class)
+# 파이썬의 중요한 핵심 프레임워크 - 시퀀스(Sequence), 반복(Interator), 함수(Functions), 클래스(Class)
 
 # 매직메소드 기초 설명
 
@@ -89,16 +89,19 @@ class Vector(object):
 
 	def __repr__(self):
 		"""Return the informations"""
-		# %r repr
+		# %r __repr__ / %s __str__
 		return 'Vertor(%r, %r)' % (self._x, self._y)
 
+	# 더하기
 	def __add__(self, other):
 		"""Return int vector addition of self and other"""
 		return Vector(self._x + other._x, self._y + other._y)
 
+	# 곱하기
 	def __mul__(self, other):
 		return Vector(self._x * other, self._y * other)
 
+	# boolean
 	def __bool__(self):
 		return bool(max(self._x, self._y))
 # Vector 인스턴스 생성
