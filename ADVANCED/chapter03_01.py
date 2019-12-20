@@ -52,6 +52,7 @@ print()
 # 값을 가지는 구조만 구성한다.
 # 실제 사용을 할때 값을 생성한다.
 # 한마디로 대기상태이고 값을 사용할때 메모리에 할당한다.
+#  generator expression = ()
 tuple_g = (ord(c) for c in chars)
 # Array
 array_g = array('I', (ord(c) for c in chars))
@@ -93,5 +94,62 @@ print('Ex4-4 -', marks2)
 # 증명
 print('Ex4-5 -', [id(l) for l in marks1])
 print('Ex4-6 -', [id(l) for l in marks2])
+# Ex4-5 - [4515001600, 4515001440, 4515001360]
+# Ex4-6 - [4515001200, 4515001200, 4515001200]
 
 # Tuple Advanced
+
+# Packing & Unpacking
+print('Ex5-1 -', divmod(100, 9))
+print('Ex5-2 -', divmod(*(100, 9)))
+print('Ex5-3 -', *(divmod(100, 9)))  # 자주 사용하지 않는 스타일
+
+print()
+
+x, y, *rest = range(10)
+print('Ex5-4 -', x, y, rest)
+x, y, *rest = range(2)
+print('Ex5-5 -', x, y, rest)
+x, y, *rest = 1, 2, 3, 4, 5
+print('Ex5-6 -', x, y, rest)
+
+print()
+print()
+
+# Mutable(가변) VS Immutable(불편)
+i = (10, 15, 20)
+m = [10, 15, 20]
+print('Ex6-1 -', i, m, id(i), id(m))
+
+i = i * 2
+m = m * 2
+print('Ex6-2 -', i, m, id(i), id(m))
+
+i *= 2
+m *= 2
+print('Ex6-3 -', i, m, id(i), id(m))
+# Ex6-1 - (10, 15, 20) [10, 15, 20] 4316721392 4316803712
+# Ex6-2 - (10, 15, 20, 10, 15, 20) [10, 15, 20, 10, 15, 20] 4316566368 4316803632
+# Ex6-3 - (10, 15, 20, 10, 15, 20, 10, 15, 20, 10, 15, 20) [10, 15, 20, 10, 15, 20, 10, 15, 20, 10, 15, 20] 4315648880 4316803632
+
+# sort vs sorted
+# reverse, key=len, key=str.lower, key=func
+
+f_list = ['orange', 'apple', 'mango', 'lemon', 'papaya', 'coconut', 'strawberry']
+
+# sorted :  정렬 후 '새로운 객체' 반환
+print('EX7-1 -', sorted(f_list))
+print('EX7-2 -', sorted(f_list, reverse=True))
+print('EX7-3 -', sorted(f_list, key=len))
+print('EX7-4 -', sorted(f_list, key=lambda x: x[-1]))  # 마지막 글자로 정렬
+print('EX7-5 -', sorted(f_list, key=lambda x: x[-1], reverse=True))
+print('EX7-6 -', f_list)  # 원본은 변경되지 않음
+
+# sort : 정렬 후 객체 직접 변경
+# 반환 값 확인 None하면 객체를 직접 변경하는 함수라고 생각할 수 있다.
+a = f_list.sort()
+print('EX7-7 -', f_list.sort(), f_list)
+print('EX7-8 -', f_list.sort(reverse=True), f_list)
+print('EX7-9 -', f_list.sort(key=len), f_list)
+print('EX7-10 -', f_list.sort(key=lambda x: x[-1]), f_list)
+print('EX7-11 -', f_list.sort(key=lambda x: x[-1], reverse=True), f_list)
