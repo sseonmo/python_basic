@@ -11,7 +11,7 @@
 
 # 컨테이너(Container) : 서로 다른 자료형 [list, tuple, collections.deque ]
 # Flat : 한 개의 자료형 [ str, bytes, bytearray, array.array, memoryview ] - 성능상 더 빠르다
-# 가변 : list, bytearray, array.arrat memoryview, deque
+# 가변 : list, bytearray, array.array memoryview, deque
 # 불변 : tuple, str, bytes
 
 # 지능형 리스트 (Comprehending Lists)
@@ -38,7 +38,7 @@ codes4 = list(filter(lambda x: x > 40, map(ord, chars)))  # 가독성도 괜찮�
 print('EX-1-1 -', codes1)
 print('EX-1-2 -', codes2)
 print('EX-1-3 -', codes3)
-print('EX-1-4 -', codes3)
+print('EX-1-4 -', codes4)
 print('EX-1-5 -', [chr(c) for c in codes1])
 print('EX-1-6 -', [chr(c) for c in codes2])
 print('EX-1-7 -', [chr(c) for c in codes3])
@@ -97,8 +97,9 @@ print('Ex4-6 -', [id(l) for l in marks2])
 # Ex4-5 - [4515001600, 4515001440, 4515001360]
 # Ex4-6 - [4515001200, 4515001200, 4515001200]
 
+print()
+print()
 # Tuple Advanced
-
 # Packing & Unpacking
 print('Ex5-1 -', divmod(100, 9))
 print('Ex5-2 -', divmod(*(100, 9)))
