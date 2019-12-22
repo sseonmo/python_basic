@@ -82,6 +82,7 @@ for k, v in source:
 print('EX3-2 -', new_dict2)
 print()
 print()
+
 # 사용자 정의 dict 상속(UserDict 가능)
 # 반드시 dict 를 상속받아야 dict 형태로 오버라이딩 할 수 있다.
 class UserDict(dict):
@@ -107,9 +108,67 @@ user_dict2 = UserDict({'one': 1, 'two': 2})
 user_dict3 = UserDict([('one', 1), ("two", 2)])
 # 출력
 print('EX4-1 -', user_dict1, user_dict2, user_dict3)
-print('EX4-2 -', user_dict2.get('two')) # Called : __getitem__ ->(값이없으면) Called : __missing__
-print('EX4-3 -', 'one' in user_dict3)   # Called : __contains__
+print('EX4-2 -', user_dict2.get('two'))  # Called : __getitem__ ->(값이없으면) Called : __missing__
+print('EX4-3 -', 'one' in user_dict3)  # Called : __contains__
 # print('EX4-4 -', user_dict3['three'])   # __missing__ 바로 감.
 print('EX4-5 -', user_dict3.get('three'))
 print('EX4-6 -', 'three' in user_dict3)
+print()
+print()
 
+# immutable Dict
+from types import MappingProxyType
+
+d = {'key1': 'TEST1'}
+
+# Read Only
+d_Frozen = MappingProxyType(d)
+
+print('EX5-1 -', d, id(d))
+print('EX5-2 -', d_Frozen, id(d_Frozen))
+print('EX5-2 -', d is d_Frozen, d == d_Frozen)
+
+# 수정불가
+# d_Frozen['key'] = 'TEST2'
+
+d['key2'] = 'TEST2'
+print('EX5-4 -', d)
+print()
+print()
+
+# Set 구조(FrozenSet)
+# 중복을 허용하지 않는다. 정제 후 사용하는것이 좋
+s1 = {'Apple', 'Orange', 'Apple', 'Orange', 'Kiwi'}
+s2 = set(['Apple', 'Orange', 'Apple', 'Orange', 'Kiwi'])
+s3 = {3}
+s4 = set()  # empty set 생성다
+s5 = frozenset({'Apple', 'Orange', 'Apple', 'Orange', 'Kiwi'})
+
+# 추가
+s1.add('Melon')
+
+# 추가불가
+# s5.add('Melon')
+
+print('EX6-1 -', s1, type(s1))
+print('EX6-2 -', s2, type(s2))
+print('EX6-3 -', s3, type(s3))
+print('EX6-4 -', s4, type(s4))
+print('EX6-5 -', s5, type(s5))
+
+# 선언최적화
+from dis import dis
+
+print('EX6-6 -')
+print(dis('{10}'))
+print(dis('set([10])'))
+
+print()
+print()
+
+# 지능형 집합(Comprehending Set)
+from unicodedata import name
+
+print('EX-7-1 -')
+print({chr(i) for i in range(1, 256)})
+print({name(chr(i), '') for i in range(1, 256)})
