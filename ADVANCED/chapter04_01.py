@@ -31,7 +31,7 @@ class A:
 print('EX-1 - ', factorial(5))
 print('EX1-2 - ', factorial.__doc__)
 print('EX1-3 - ', type(factorial), type(A))
-print('EX1-4 - ', set(sorted(dir(factorial))) - set(sorted(dir(A))))  # 함수만 가지고 있는 함수
+print('EX1-4 - ', set(sorted(dir(factorial))) - set(sorted(dir(A))))  # 함수만 가지고 있는 함수 / set 사용하여 빼기
 # EX1-4 -  {'__call__', '__get__', '__code__', '__qualname__', '__name__', '__globals__', '__kwdefaults__', '__defaults__', '__closure__', '__annotations__'}
 print('EX1-5 - ', factorial.__name__)
 print('EX1-6 - ', factorial.__code__)
@@ -46,6 +46,8 @@ print('EX2-2 - ', var_func(5))
 print('EX2-3 - ', map(var_func, range(1, 6)))
 print('EX2-4 - ', list(map(var_func, range(1, 6))))
 
+print()
+print()
 # 함수 인수 전달 및 함수로 결과 반환 -> 고차함수(Higher-order Function)
 print('EX3-1 -', list(map(var_func, filter(lambda x: x % 2, range(1, 6)))))
 print('EX3-2 -', [var_func(i) for i in range(1, 6) if i % 2])
@@ -113,7 +115,7 @@ print()
 print()
 
 # 함수 Signatures
-# inspect 유요한 함수들이 많이 있다. - 레퍼런스을 한번 보는것이 좋다
+# inspect 유용한 함수들이 많이 있다. - 레퍼런스을 한번 보는것이 좋다
 from inspect import signature
 
 sg = signature(args_test)
