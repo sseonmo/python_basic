@@ -83,7 +83,7 @@ print('EX-3-3 -', avg_cls(40))
 print()
 print()
 
-# 크로저(Closure) 사용
+# 클로저(Closure) 사용
 # 전역변수 사용 감소
 # 다지인 패턴 적용
 
