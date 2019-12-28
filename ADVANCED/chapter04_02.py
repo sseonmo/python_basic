@@ -169,7 +169,57 @@ def perf_clock(func):
 		# 매개변수
 		arg_str = ','.join(repr(arg) for arg in args)
 		# 출력 | %s : str | %r : repr | %f : 실수 | %d : 정수
-		# %0.5f => 실수 5자리까지 표
-		print('[%0.5fs] %s(%s) -> %r' % (et, name, arg_str, result))
+		# %0.5f => 실수 5자리까지
+		print('Result [%0.5fs] %s(%s) -> %r' % (et, name, arg_str, result))
 		return result
-	return perf_clock
+
+	return perf_clocked
+
+@perf_clock
+def time_func(seconds):
+	time.sleep(seconds)
+
+@perf_clock
+def sum_func(*numbers):
+	return sum(numbers)
+
+@perf_clock
+def fact_func(n):
+	return 1 if n < 2 else n * fact_func(n - 1)
+
+# 5 : 5 * 24
+# 4 : 4 * 6
+# 3 : 3 * 2
+# 2 : 2 * 1
+# 1 : return 1
+
+# 데코레이터 미사용
+non_deco1 = perf_clock(time_func)
+non_deco2 = perf_clock(sum_func)
+non_deco3 = perf_clock(fact_func)
+
+print('EX7-1 -', non_deco1, non_deco1.__code__.co_freevars)
+print('EX7-2 -', non_deco2, non_deco2.__code__.co_freevars)
+print('EX7-3 -', non_deco3, non_deco3.__code__.co_freevars)
+
+# print('*' * 40, 'Called Non Deco -> time_func')
+# print('EX7-4 -')
+# non_deco1(2)
+# print('EX7-5 -')
+# non_deco2(100, 200, 300, 500)
+# print('EX7-6 -')
+# non_deco3(10)
+
+print()
+print()
+print('*' * 40, 'Called Non Deco -> time_func')
+print('EX7-7 -')
+time_func(2)
+
+print('*' * 40, 'Called Non Deco -> time_func')
+print('EX7-8 -')
+sum_func(100, 200)
+
+print('*' * 40, 'Called Non Deco -> time_func')
+print('EX7-9 -')
+fact_func(5)

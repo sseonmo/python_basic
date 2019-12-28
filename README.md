@@ -6,6 +6,15 @@
 print('py''thon')   # python - 중간에 + 생략되어 있다.
 print('py' * 3)     # pypypy
 ```
+### 삼항연산자
+```python
+# 참인경우 값 if 조건 else 거짓인경우 값
+# True는 참
+# False는 거짓
+print("True는 참" if True else "True는 거짓")
+print("False는 참" if False else "False는 거짓")
+```
+
 ### 문자 인덱싱 & 슬라이싱
 ```python
 """ 줄바꿈
@@ -48,7 +57,7 @@ print(colors.pop())     # red
 print(colors)           # ['red', 'black', 'green', 'gold', 'blue', 'white', 'gray']
 ```
 
-### 세트 
+### SET
 - 집합과 동일
 - 순서가 없음
 - 제공되는 메서드는 리슽와 유사하면, 추가적으로 교집합과 합집합 메서드 제공
