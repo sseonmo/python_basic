@@ -3,7 +3,7 @@
 
 # 파이썬 클래스 관련 메소드 심화
 #   private 속성실습
-#       - self.__a : __ 이용한 private 변수 생성하여 instence 에서 접근불가능하게 만든다.
+#       - self.__a : `__` 이용한 private 변수 생성하여 instence 에서 접근불가능하게 만든다.
 #       - Getter, Setter 이용하여 메소드를 활용해서 변경가능하게 만든다.
 #           - 변수명으로 method 생성하는 것이 관례
 # 		    - Getter : @property 어노테이션 이용함
@@ -50,7 +50,6 @@ class VectorP(object):
 			raise ValueError('30 below is not possible')
 		self.__y = float(v)
 
-
 v = VectorP(20, 40)
 # 객체선언
 
@@ -60,8 +59,82 @@ v = VectorP(20, 40)
 # Getter, Setter
 print(v.x)
 v.x = 10
-v.y = 20
+v.y = 40
+print('EX1-2 -', dir(v), v.__dict__)
+print('EX1-3 -', v.x, v.y)
 
 # Iter 확인
 for val in v:
-	print('EX1-2 -', val)
+	print('EX1-4 -', val)
+
+print()
+print()
+
+# __slot__
+# 파이썬 인터프리터에게 통보
+# 핵심 : 해당 클래스가 가지는 속성을 제한
+# __dict__ 속성 최적화 -> 다수 객체 생성시 -> 메모리 사용 공간 대폭 감소
+# 해당 클래스에 만들어진 인스턴스 속성 관리에 딕셔너리 대신 Set 형태를 사용
+# 반드시 문자열로 입력해야 한다.
+# 참조설명 - https://planbs.tistory.com/entry/Python-slots
+#   알려진(known) 속성들로 구성된 클래스들의 경우 이러한 구조는 딕셔너리가 낭비하는 RAM 때문에 병목이 발생할 수 있습니다.
+#   클래스 레벨에 __slots__라는 변수를 설정해서, 해당 클래스에 의해 만들어진 객체의 인스턴스 속성 관리에 딕셔너리 대신
+#   속성에 대한 고정된(fixed) set을 사용하도록 할 수 있습니다.
+
+class TestA(object):
+	__slots__ = ('a',)
+
+class TestB:
+	pass
+
+use_slot = TestA()
+no_slot = TestB()
+
+print('EX2-1 -', use_slot)
+# print('EX2-2 -', use_slot.__dict__) # error
+print('EX2-3 -', no_slot)
+print('EX2-4 -', no_slot.__dict__)
+
+# 메모리 사용량 비교
+import timeit
+
+# 측정을 위한 함수 선언
+def repeat_outer(obj):
+	def repeat_inner():
+		obj.a = 'TEST'
+		del obj.a
+	return repeat_inner
+
+print(min(timeit.repeat(repeat_outer(use_slot), number=10000)))
+print(min(timeit.repeat(repeat_outer(no_slot), number=10000)))
+
+print()
+print()
+
+# 객체 슬라이싱
+class Objects:
+	def __init__(self):
+		self._numbers = [n for n in range(1, 100, 3)]
+
+	def __len__(self):
+		return len(self._numbers)
+
+	def __getitem__(self, idx):
+		return self._numbers[idx]
+
+s = Objects()
+
+print('EX3-1 -', s.__dict__)
+print('EX3-2 -', len(s))
+print('EX3-3 -', len(s._numbers))
+print('EX3-4 -', s[1:100])
+print('EX3-5 -', s[-1])
+print('EX3-5 -', s[::10])
+
+# 파이썬 추상클래스
+# 참고 : https://docs.python.org/3/library/collections.abc.html
+
+# 추상클래스 사용이유
+# 자체적으로 객체 생성 불가
+# 상속을 통해서 자식 클래스에서 자식클래스에서 인스턴스를 상속해야함
+# 개발과 관련된 공통된 내용(필드, 메소드)을 추출 및 통합해서 공통된 내용으로 작성하게 하는 것
