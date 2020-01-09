@@ -137,7 +137,7 @@ print()
 print()
 
 # Set 구조(FrozenSet)
-# 중복을 허용하지 않는다. 정제 후 사용하는것이 좋
+# 중복을 허용하지 않는다. 정제 후 사용하는것이 좋다
 s1 = {'Apple', 'Orange', 'Apple', 'Orange', 'Kiwi'}
 s2 = set(['Apple', 'Orange', 'Apple', 'Orange', 'Kiwi'])
 s3 = {3}

@@ -157,10 +157,9 @@ print()
 print()
 
 # Genarator 예제3 ( 자주사용하는 함수 )
-
 import itertools
 
-gen1 = itertools.count(1, 2.5)
+gen1 = itertools.count(1, 2.5)  # next()로 호출될때만다 2.5을 더한 후 값을 반환
 
 print('EX6-1 -', next(gen1))
 print('EX6-2 -', next(gen1))
@@ -168,3 +167,58 @@ print('EX6-3 -', next(gen1))
 print('EX6-4 -', next(gen1))
 # ... 무한
 
+# 조건
+# takewhile(predicate, iterable)
+# predicate 는 True 나 False 를 리턴하는 함수라고 보면 되고, iterable 은 리스트, 튜플, 문자열과 같이 각각의 요소에 접근할 수 있는 자료형이라고 보면 된다.
+gen2 = itertools.takewhile(lambda n: n < 1000, itertools.count(1, 2.5))
+
+for v in gen2:
+	print('EX6-5 -', v)
+
+print()
+
+# 필터 반대 - 조건의 반대
+gen3 = itertools.filterfalse(lambda n: n < 3, [1, 2, 3, 4, 5])
+
+for v in gen3:
+	print('EX-6-6 -', v)
+
+print()
+
+# 누적합계
+gen4 = itertools.accumulate([x for x in range(1, 101)])
+
+for v in gen4:
+	print('EX6-6 -', v)
+
+print()
+
+# 연결1
+gen5 = itertools.chain('ABCDE', range(1, 11, 2))
+print('EX6-7 -', list(gen5))  # EX6-7 - ['A', 'B', 'C', 'D', 'E', 1, 3, 5, 7, 9]
+
+# 연결2
+gen6 = itertools.chain(enumerate('ABCED'))
+print('EX6-8 -', list(gen6))  # EX6-8 - [(0, 'A'), (1, 'B'), (2, 'C'), (3, 'E'), (4, 'D')]
+
+# 개별
+gen7 = itertools.product('ABCED')  # EX6-9 - [('A',), ('B',), ('C',), ('E',), ('D',)]
+print('EX6-9 -', list(gen7))
+
+# 연산(경우의 수)
+gen8 = itertools.product('ABCED', repeat=2)
+print('EX6-10 -', list(gen8))
+# EX6-10 - [('A', 'A'), ('A', 'B'), ('A', 'C'), ('A', 'E'), ('A', 'D')
+# , ('B', 'A'), ('B', 'B'), ('B', 'C'), ('B', 'E'), ('B', 'D')
+# , ('C', 'A'), ('C', 'B'), ('C', 'C'), ('C', 'E'), ('C', 'D')
+# , ('E', 'A'), ('E', 'B'), ('E', 'C'), ('E', 'E'), ('E', 'D')
+# , ('D', 'A'), ('D', 'B'), ('D', 'C'), ('D', 'E'), ('D', 'D')]
+
+# 그룹화
+gen9 = itertools.groupby('AAAABBCCCCDDEEEE')
+# print('EX6-11 -', list(gen9))
+
+for chr, group in gen9:
+	print('EX6-12 -', chr, ':', list(group))
+
+print()
