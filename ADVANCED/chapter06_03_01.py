@@ -55,7 +55,8 @@ def get_sales_data(nt):
 			if r['Country'] == nt:
 				# print(r['Country'])
 				data.append(r)
-		return data
+
+	return data
 
 # 중간상황출력
 def show(text):

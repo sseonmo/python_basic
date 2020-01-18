@@ -1,3 +1,4 @@
+
 # 자료형
 ### 수치
 - int, float, complex, 연산자(+, -, *, /, //(몫), %(나머지), **(제곱), =) 
@@ -1757,7 +1758,7 @@ from os import *
 
 print(chdir(".."))
 print(getcwd())
-startfile('test.txt')   # notepad 실행됨.
+# startfile('test.txt')   # notepad 실행됨. - windows에서만
 ```
 
 #### os.excel(path, arg0, arg1, ..)
